@@ -7,7 +7,7 @@ const AsideCategory = () => {
 
     const [open, setOpen] = useState(false);
     const [nameCategory, setNameCategory] = useState('');
-    const [color, setColor] = useState("#369C");
+    const [color, setColor] = useState("#336699");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -61,7 +61,7 @@ const AsideCategory = () => {
             <Category />
 
             <Button
-                /*  onClick={handleClickOpen} */
+                onClick={handleClickOpen}
 
                 sx={{
                     color: "white.default",
@@ -116,6 +116,7 @@ const AsideCategory = () => {
                         fullWidth
                         value={nameCategory}
                         sx={{
+                            mb: "10px",
                             borderRadius: "10px",
                             bgcolor: "white.default",
                             ".MuiInputLabel-root, .MuiInputLabel-root.Mui-focused": {

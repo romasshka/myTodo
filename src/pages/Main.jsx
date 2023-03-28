@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/Header"
-import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { Box, Container, Grid, } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import TodoList from "../components/TodoList";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../toolkitRedux/todoSlice";
 import AsideCategory from "../components/AsideCategories";
+import AddTodoItem from "../components/AddTodoItem.jsx";
 
 
 const Item = styled(Box)(({ theme }) => ({
@@ -37,10 +36,7 @@ const Main = () => {
         //  SecurityUpdateGoodSharp(todos.filter(todo => todo.id !== todoId))
     }
 
-    const [text, setText] = useState('');
-    const dispatch = useDispatch();
 
-    const addTask = () => dispatch(addTodo(text))
 
     return (
         <Container>
@@ -53,11 +49,6 @@ const Main = () => {
                 <Grid
                     item
                     xs={3}
-                /*                  sx={{
-                                     '.css-mhc70k-MuiGrid-root>.MuiGrid-item': {
-                                         pl: "0px",
-                                     },
-                                 }} */
                 >
                     <Item>
                         <AsideCategory />
@@ -69,26 +60,9 @@ const Main = () => {
 
                 >
                     <Item
-                    /* sx={{
-                        bgcolor: "primary.main",
-                        borderRadius: "10px",
-                        p: "0.8rem",
-            }} */
                     >
-                        <label
-                        >
-                            <TextField
-                                id="outlined-basic"
-                                label="Outlined"
-                                variant="outlined"
-                                value={text}
-                                onChange={(e) => setText(e.target.value)}
-                            />
-                            <Button
-                                onClick={addTask}>
-                                Add Todo
-                            </Button>
-                        </label>
+                        <AddTodoItem
+                        />
                         <TodoList />
                     </Item>
                 </Grid>
