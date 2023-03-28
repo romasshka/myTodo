@@ -1,11 +1,13 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import NightlightRoundedIcon from '@mui/icons-material/NightlightRounded';
-import { Button } from '@mui/material';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { Button, Grid, useTheme } from '@mui/material';
+import { ColorModeContext, tokens } from '../theme';
 
 export default function Header() {
     const [auth, setAuth] = React.useState(true);
@@ -23,25 +25,46 @@ export default function Header() {
         setAnchorEl(null);
     };
 
+    const theme = useTheme()
+    const colors = tokens(theme.palette.mode)
+    const colorMode = React.useContext(ColorModeContext)
+
+
     return (
-        <Box>
-            <AppBar
-                position="static"
-                color='inherit'
-            >
-                <Toolbar>
+        <AppBar
+            edge="center"
+            position="static"
+            sx={{
+                bgcolor: "inherit",
+                boxShadow: "none",
+                backgroundImage: 'none',
+                my: "65px",
+            }}
+        >
+            <Toolbar>
 
-                    <Button
-                        disabled
-                        variant="h6"
-                        component="a">
-                        <Typography>
-                            PERSONAL <br />
-                            TASK MANAGER
-
-                        </Typography>
-                    </Button>
+                <Button
+                    disableFocusRipple
+                    variant="h1"
+                    component="a"
+                    sx={{
+                        color: colors.yellow.light,
+                        mx: "auto",
+                    }}
+                >
+                    <Typography
+                        variant='h1'
+                        textAlign="center"
+                    >
+                        PERSONAL <br />
+                        TASK MANAGER
+                    </Typography>
+                </Button>
+                <Grid
+                    onClick={colorMode.toggleColorMode}
+                >
                     <IconButton
+                        edge="end"
                         size="large"
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -49,12 +72,16 @@ export default function Header() {
                         onClick={handleMenu}
                         color="inherit"
                     >
-                        <NightlightRoundedIcon
-                            color='primary'
-                        />
+                        {
+                            theme.palette.mode === 'dark'
+                                ?
+                                (<DarkModeIcon />)
+                                :
+                                (<LightModeIcon />)
+                        }
                     </IconButton>
-                </Toolbar>
-            </AppBar>
-        </Box>
+                </Grid>
+            </Toolbar>
+        </AppBar>
     );
 }
