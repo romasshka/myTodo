@@ -22,6 +22,7 @@ const AsideCategory = () => {
         console.log(color)
     }
 
+
     return (
         <Box
             paddingY="1rem"
@@ -114,17 +115,12 @@ const AsideCategory = () => {
                         type="text"
                         variant="filled"
                         fullWidth
+                        InputProps={{ disableUnderline: true }}
                         value={nameCategory}
                         sx={{
                             mb: "10px",
                             borderRadius: "10px",
                             bgcolor: "white.default",
-                            ".MuiInputLabel-root, .MuiInputLabel-root.Mui-focused": {
-                                color: "grey.main",
-                            },
-                            ".MuiFilledInput-root:after, .MuiFilledInput-root:hover:not(.Mui-disabled, .Mui-error):before, .MuiFilledInput-root:before": {
-                                borderBottom: "none"
-                            },
                         }}
                     />
                     <MuiColorInput
