@@ -128,7 +128,7 @@ export const themeSettings = (mode) => {
                 defaultProps: {
                     maxWidth: "lg",
                 },
-            }
+            },
         }
     }
 }

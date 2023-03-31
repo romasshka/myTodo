@@ -46,7 +46,11 @@ const AddTodoItem = () => {
                 variant="standard"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
+
                 sx={{
+                    ".MuiInput-root": {
+                        pl: '5px'
+                    },
                     ".MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before": {
                         borderBottom: "1px solid rgba(0, 0, 0, 0.87)",
                     },

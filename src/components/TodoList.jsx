@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { List } from "@mui/material";
 import { useSelector } from 'react-redux';
 import TodoItem from "./mainPageParts/TodoItem";
 
@@ -8,15 +8,14 @@ const TodoList = () => {
     /*     console.log(todos) */
 
     return (
-        <ul
-        >
+        <List>
             {todos.map((todo) =>
                 <TodoItem
                     key={todo.id}
                     {...todo}
                 />
             )}
-        </ul>
+        </List>
     )
 }
 
