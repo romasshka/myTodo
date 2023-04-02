@@ -30,7 +30,12 @@ const AddTodoItem = () => {
     const [text, setText] = useState('');
     const dispatch = useDispatch();
 
-    const addTask = () => dispatch(addTodo(text))
+    const emptyText = "Enter task please"
+
+    const addTask = () => {
+        dispatch(addTodo({text}))
+        setText('')
+    }
 
     return (
         <Box
@@ -41,6 +46,7 @@ const AddTodoItem = () => {
             <TextField
                 focused
                 fullWidth
+                autoComplete="off"
                 id="outlined-basic"
                 label="Add new task"
                 variant="standard"
@@ -67,6 +73,9 @@ const AddTodoItem = () => {
                         color: "#000000",
                         opacity: 0.6,
                     },
+                    "&.input:-internal-autofill-selected": {
+                        backgroundColor: "inherit",
+                    }
                 }}
             />
             <Button

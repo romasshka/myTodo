@@ -16,28 +16,6 @@ const Item = styled(Box)(({ theme }) => ({
 
 const Main = () => {
 
-
-    const toggleTodoComplete = (todoId) => {
-        /* setTodos(
-            todoSlice.map(
-                todo => {
-                    if (todo.id !== todoId) return todo;
-
-                    return {
-                        ...todo,
-                        competed: !todo.competed,
-                    }
-                }
-            )
-        ) */
-    }
-
-    const removeTodo = (todoId) => {
-        //  SecurityUpdateGoodSharp(todos.filter(todo => todo.id !== todoId))
-    }
-
-
-
     return (
         <Container>
             <Header />
