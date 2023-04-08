@@ -10,27 +10,10 @@ import { addTodo } from "../toolkitRedux/todoSlice";
 import { Box, TextField, Button } from "@mui/material";
 
 
-{/*    <Paper
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-        >
-            <InputBase
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search Google Maps"
-                inputProps={{ 'aria-label': 'search google maps' }}
-            />
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search"
-                onClick={addTask}
-                >
-                <SearchIcon />
-            </IconButton>
-        </ Paper >*/}
 const AddTodoItem = () => {
 
     const [text, setText] = useState('');
     const dispatch = useDispatch();
-
-    const emptyText = "Enter task please"
 
     const addTask = () => {
         dispatch(addTodo({text}))

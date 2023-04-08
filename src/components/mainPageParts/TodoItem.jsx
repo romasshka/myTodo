@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { FormControl, InputLabel, ListItem, MenuItem, Select, Typography, styled } from "@mui/material";
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { useState, useEffect } from "react";
+import { FormControl, InputLabel, ListItem, MenuItem, Select, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Padding } from "@mui/icons-material";
 import { removeTodo, toggleTodoComplete } from "../../toolkitRedux/todoSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
 
+const selectCategories = createSelector(
+    state => state.categories.categories,
+    categories => categories,
+);
 
 const TodoItem = ({ text, id, completed }) => {
 
@@ -18,15 +22,19 @@ const TodoItem = ({ text, id, completed }) => {
     /> : < RadioButtonUncheckedIcon
         sx={{
             color: "#228B22"
-        }} />;
+        }} />
+
+    const listCategories = useSelector(selectCategories)
     const dispatch = useDispatch();
-    const [age, setAge] = useState('');
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setSelectedCategory(event.target.value);
     };
-    console.log(completed);
 
     return (
+
         <ListItem
             sx={{
                 display: "grid",
@@ -54,26 +62,21 @@ const TodoItem = ({ text, id, completed }) => {
                 variant="standard"
                 sx={{
                     px: "10px",
-                    bgcolor: 'yellow.main',
                     borderRadius: "25px",
                     textAlign: "center",
                     ".MuiInputLabel-standard": {
                         display: "none"
-                    }
+                    },
+                    bgcolor: listCategories.find(category => category.id === selectedCategory)?.color
                 }}
-                size="small">
-                <InputLabel
-                    sx={{
-                        pl: "15px",
-                    }}
-                >
-                    Age
-                </InputLabel>
+                size="small"
+            >
+                <InputLabel sx={{ pl: "15px" }}>Age</InputLabel>
                 <Select
-                    disableUnderline
-                    value={age}
-                    label="Age"
+                    value={selectedCategory}
                     onChange={handleChange}
+                    disableUnderline
+                    label="Age"
                     sx={{
                         color: "white.default",
                         'label+&': {
@@ -85,26 +88,19 @@ const TodoItem = ({ text, id, completed }) => {
                         }
                     }}
                 >
-                    <MenuItem
-
-                        value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem
-                        value={10}>
-                        Ten
-                    </MenuItem>
-                    <MenuItem
-                        value={20}>
-                        Twenty
-                    </MenuItem>
-                    {/* <MenuItem
-                        value={30}>
-                        Thirty
-                    </MenuItem>  */}
+                    {listCategories.map((category) =>
+                        <MenuItem
+                            key={category.id}
+                            value={category.id}
+                            sx={{
+                                bgcolor: category.color
+                            }}
+                        >
+                            {category.name}
+                        </MenuItem>
+                    )}
                 </Select>
             </FormControl>
-
 
             <DeleteIcon
                 position="end"

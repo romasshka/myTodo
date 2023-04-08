@@ -1,15 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
-import Category from "./Category";
+import CategoriesList from "./CategoriesList";
 import { MuiColorInput } from "mui-color-input";
+import { addCategory } from "../toolkitRedux/categorySlice"
+import { useDispatch } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+
+const styles = {
+    mb: "30px",
+    color: "white.default",
+    overflow: "hidden",
+    '&::before , &::after': {
+        content: '""',
+        display: "inline-block",
+        verticalAlign: "middle",
+        height: "1px",
+        border: "solid",
+        borderColor: "white.dark",
+        borderWidth: "0px 50px",
+        overflow: "hidden",
+    },
+    '&::before': {
+        ml: "-100%",
+        mr: "13px",
+    },
+    '&::after': {
+        mr: "-100%",
+        ml: "13px",
+    }
+};
 
 const AsideCategory = () => {
 
-    const [open, setOpen] = useState(false);
     const [nameCategory, setNameCategory] = useState('');
     const [color, setColor] = useState("#336699");
+    const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (event) => {
         setOpen(true);
     }
 
@@ -19,8 +46,16 @@ const AsideCategory = () => {
 
     const handleColorChange = (color) => {
         setColor(color)
-        console.log(color)
     }
+
+    const dispatch = useDispatch();
+    const handleAddCategory = () => {
+        dispatch(addCategory({ nameCategory, color }))
+        setNameCategory('')
+        handleClose()
+    }
+
+
 
 
     return (
@@ -30,41 +65,17 @@ const AsideCategory = () => {
             <Typography
                 align="center"
                 variant="h3"
-                sx={{
-                    mb: "30px",
-                    color: "white.default",
-                    overflow: "hidden",
-
-                    '&::before , &::after': {
-                        content: '""', // "''" will also work.
-                        display: "inline-block",
-                        verticalAlign: "middle",
-                        height: "1px",
-                        border: "solid",
-                        borderColor: "white.dark",
-                        borderWidth: "0px 50px",
-                        overflow: "hidden",
-                    },
-                    '&::before': {
-                        ml: "-100%",
-                        mr: "13px",
-
-                    },
-                    '&::after': {
-                        mr: "-100%",
-                        ml: "13px",
-                    }
-
-                }}
+                sx={styles}
             >
                 Categories
             </Typography>
-            <Category />
+            <CategoriesList />
 
             <Button
                 onClick={handleClickOpen}
 
                 sx={{
+                    width: "200px",
                     color: "white.default",
                     backgroundColor: "secondary.main",
                     borderRadius: "15px",
@@ -117,6 +128,7 @@ const AsideCategory = () => {
                         fullWidth
                         InputProps={{ disableUnderline: true }}
                         value={nameCategory}
+                        onChange={(e) => setNameCategory(e.target.value)}
                         sx={{
                             mb: "10px",
                             borderRadius: "10px",
@@ -141,6 +153,7 @@ const AsideCategory = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button
+                        onClick={handleAddCategory}
                         variant="error"
                         color="secondary.main"
                         sx={{

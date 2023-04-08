@@ -5,8 +5,6 @@ import TodoItem from "./mainPageParts/TodoItem";
 
 const TodoList = () => {
     const todos = useSelector(state => state.todos.todos);
-    /*     console.log(todos) */
-
     return (
         <List>
             {todos.map((todo) =>
