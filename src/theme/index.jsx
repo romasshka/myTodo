@@ -102,24 +102,24 @@ export const themeSettings = (mode) => {
         },
         typography: {
             fontFamily: ['Open Sans', 'sans-serif'].join(','),
-            fontSize: 20,
+            fontSize: 17.5,
             fontWeight: 400,
             h1: {
                 fontFamily: ['Open Sans', 'sans-serif'].join(','),
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: 800,
                 lineHeight: "90%",
             },
 
             h2: {
                 fontFamily: ['Open Sans', 'sans-serif'].join(','),
-                fontSize: 20,
+                fontSize: 17.5,
                 fontWeight: 800,
             },
 
             h3: {
                 fontFamily: ['Open Sans', 'sans-serif'].join(','),
-                fontSize: 20,
+                fontSize: 17.5,
                 fontWeight: 600,
             }
         },

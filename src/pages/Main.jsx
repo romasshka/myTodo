@@ -3,7 +3,7 @@ import Header from "../components/Header"
 import { Box, Container, Grid, } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import TodoList from "../components/TodoList";
-import AsideCategory from "../components/AsideCategories";
+import AsideCategory from "../components/AsideCategory";
 import AddTodoItem from "../components/AddTodoItem.jsx";
 
 
