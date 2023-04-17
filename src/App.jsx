@@ -3,7 +3,7 @@ import Main from "./pages/Main";
 import { ColorModeContext, useMode } from './theme/index.jsx';
 import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
-import store from './toolkitRedux'
+import store from './toolkitRedux/store'
 
 function App() {
   const [theme, colorMode] = useMode();

@@ -9,6 +9,8 @@ const TodoList = () => {
         <List>
             {todos.map((todo) =>
                 <TodoItem
+                    todo={todo}
+                    
                     key={todo.id}
                     {...todo}
                 />

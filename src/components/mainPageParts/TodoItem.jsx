@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormControl, InputLabel, ListItem, MenuItem, Select, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
@@ -14,7 +14,6 @@ const selectCategories = createSelector(
 );
 
 const TodoItem = ({ text, id, completed }) => {
-
     const icon = completed ? < CheckCircleOutlineIcon
         sx={{
             color: "#228B22"

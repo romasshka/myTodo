@@ -33,28 +33,24 @@
       "color": "#9C27B0"
     }
   ],
-  "todoItem": [
+  "todoItems": [
     {
-      "todoItems": [
-        {
-          "id": 1,
-          "textItem": "Memorize the fifty states and their capitals",
-          "complete": "false",
-          "category": ""
-        },
-        {
-          "id": 2,
-          "textItem": "Memorize the fifty states and their capitals",
-          "complete": "true",
-          "category": ""
-        }, 
-        {
-          "id": 3,
-          "textItem": "Memorize the fifty states and their capitals",
-          "complete": "true",
-          "category": ""
-        }
-      ]
+      "id": 1,
+      "text": "Memorize the fifty states and their capitals",
+      "completed": false,
+      "category": ""
+    },
+    {
+      "id": 2,
+      "text": "Memorize the fifty states and their capitals",
+      "completed": true,
+      "category": ""
+    },
+    {
+      "id": 3,
+      "text": "Memorize the fifty states and their capitals",
+      "completed": false,
+      "category": ""
     }
   ]
 }
