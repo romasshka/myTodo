@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from "react-redux";
-import { addTodo, takeTodos } from "../toolkitRedux/todoSlice";
+import { addNewTodo, takeTodos } from "../toolkitRedux/todoSlice";
 
 import { Box, TextField, Button } from "@mui/material";
 
@@ -17,7 +12,7 @@ const AddTodoItem = () => {
 
     const addTask = () => {
         if (text.trim().length) {
-            dispatch(addTodo({ text }))
+            dispatch(addNewTodo( text ))
             setText('')
         }
     }

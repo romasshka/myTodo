@@ -1,19 +1,26 @@
-import React from "react";
+import { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
+import { takeCategories } from "../toolkitRedux/categorySlice";
 
-const selectCategories = createSelector(
-    state => state.categories.categories,
+/* const selectCategories = createSelector(
+    state => state.categories,
     categories => categories,
-)
+) */
 
 const CategoriesList = () => {
 
-    const listCategories = useSelector(selectCategories)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(takeCategories());
+    }, [dispatch]);
+
+    const { error, categories, status } = useSelector((state) => state.categories)
+
     return (
         <Box>
-            {listCategories.map((category) =>
+            {categories.map((category) =>
                 <Button
                     key={category.id}
                     sx={{
@@ -35,7 +42,7 @@ const CategoriesList = () => {
                         variant="typography"
                         color="white.default"
                     >
-                        {category.name}
+                        {category.title}
                     </Typography>
                 </Button>
             )

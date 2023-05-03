@@ -2,55 +2,31 @@
   "categories": [
     {
       "id": 1,
-      "title": "Urgent",
-      "color": "yellow",
-      "todoItems": [
-        {
-          "textItem": "Memorize the fifty states and their capitals",
-          "complete": "true"
-        }
-      ]
-    },
-    {
-      "id": 1,
       "title": "Completed",
-      "color": "#4CAF50",
-      "todoItems": [
-        {
-          "textItem": "Memorize the fifty states and their capitals",
-          "complete": "true"
-        }
-      ]
+      "color": "#4CAF50"
     },
     {
       "id": 2,
-      "title": "Urgent",
+      "title": "Default",
       "color": "#FFC107"
     },
     {
       "id": 3,
       "title": "Urgent",
       "color": "#9C27B0"
+    },
+    {
+      "title": "wwwwwww",
+      "color": "#336699",
+      "id": 4
     }
   ],
   "todoItems": [
     {
-      "id": 1,
-      "text": "Memorize the fifty states and their capitals",
+      "text": "qqqqqqqqqqqq",
       "completed": false,
-      "category": ""
-    },
-    {
-      "id": 2,
-      "text": "Memorize the fifty states and their capitals",
-      "completed": true,
-      "category": ""
-    },
-    {
-      "id": 3,
-      "text": "Memorize the fifty states and their capitals",
-      "completed": false,
-      "category": ""
+      "categoryId": 1,
+      "id": 1
     }
   ]
 }

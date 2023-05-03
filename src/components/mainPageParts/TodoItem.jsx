@@ -4,16 +4,18 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { removeTodo, toggleTodoComplete } from "../../toolkitRedux/todoSlice";
+import { deleteTodo, toggleStatus, toggleCategory } from "../../toolkitRedux/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 
 const selectCategories = createSelector(
     state => state.categories.categories,
     categories => categories,
 );
 
-const TodoItem = ({ text, id, completed }) => {
+const TodoItem = ({ text, id, completed, categoryId }) => {
+
     const icon = completed ? < CheckCircleOutlineIcon
         sx={{
             color: "#228B22"
@@ -26,11 +28,18 @@ const TodoItem = ({ text, id, completed }) => {
     const listCategories = useSelector(selectCategories)
     const dispatch = useDispatch();
 
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(categoryId);
 
+    useEffect(() => {
+        if (selectedCategory !== '') {
+            dispatch(toggleCategory({ id, selectedCategory }));
+        }
+    }, [selectedCategory, id, dispatch]);
+    
     const handleChange = (event) => {
         setSelectedCategory(event.target.value);
     };
+
 
     return (
 
@@ -43,7 +52,7 @@ const TodoItem = ({ text, id, completed }) => {
         >
             <Checkbox
                 checked={completed}
-                onChange={() => dispatch(toggleTodoComplete({ id }))}
+                onChange={() => dispatch(toggleStatus(id))}
                 icon={icon}
                 checkedIcon={icon}
             />
@@ -95,7 +104,7 @@ const TodoItem = ({ text, id, completed }) => {
                                 bgcolor: category.color
                             }}
                         >
-                            {category.name}
+                            {category.title}
                         </MenuItem>
                     )}
                 </Select>
@@ -109,7 +118,7 @@ const TodoItem = ({ text, id, completed }) => {
                     opacity: 0.8,
                     margin: "auto",
                 }}
-                onClick={() => dispatch(removeTodo({ id }))}
+                onClick={() => dispatch(deleteTodo(id))}
             />
         </ListItem >
     )
