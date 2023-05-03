@@ -1,22 +1,38 @@
-import React from "react";
 import { List } from "@mui/material";
 import { useSelector } from 'react-redux';
 import TodoItem from "./mainPageParts/TodoItem";
-
+import { Button } from "@mui/material";
 const TodoList = () => {
-    const todos = useSelector(state => state.todos.todos);
+    const { error, todos, status } = useSelector((state) => state.todos)
+
+
     return (
-        <List>
-            {todos.map((todo) =>
-                <TodoItem
-                    todo={todo}
-                    
-                    key={todo.id}
-                    {...todo}
-                />
-            )}
-        </List>
+
+        <>
+            {status === 'loading' && <h2>Loading...</h2>}
+
+            {error ?
+                <Button
+                    variant="p"
+                    component="p"
+                >
+                    {error}
+                </Button>
+                : null}
+
+            {todos ?
+                <List>
+                    {todos.map((todo) =>
+                        <TodoItem
+                            todo={todo}
+
+                            key={todo.id}
+                            {...todo}
+                        />
+                    )}
+                </List>
+                : null}
+        </>
     )
 }
-
 export default TodoList;

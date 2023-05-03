@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
 import CategoriesList from "./CategoriesList";
 import { MuiColorInput } from "mui-color-input";
-import { addCategory } from "../toolkitRedux/categorySlice"
+import { addNewCategory } from "../toolkitRedux/categorySlice"
 import { useDispatch } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
 
 const styles = {
     mb: "30px",
@@ -50,11 +49,10 @@ const AsideCategory = () => {
 
     const dispatch = useDispatch();
     const handleAddCategory = () => {
-        dispatch(addCategory({ nameCategory, color }))
+        dispatch(addNewCategory({nameCategory, color} ))
         setNameCategory('')
         handleClose()
     }
-
 
 
 

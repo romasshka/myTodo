@@ -3,15 +3,75 @@ import axios from 'axios';
 
 export const takeTodos = createAsyncThunk(
     'todos/takeTodos',
-    async () => {
+    async (_, thunkAPI) => {
         try {
-            const res = await axios.get('http://localhost:3001/todoItems')
-            return res.data
-        } catch (err) {
-            console.log(err)
+            const response = await axios.get('http://localhost:3001/todoItems?_limit=9')
+            response.data.reverse()
+            return response.data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message)
         }
-    })
+    });
 
+export const addNewTodo = createAsyncThunk(
+    'todos/addNewTodo',
+    async (text, { rejectWithValue, dispatch }) => {
+        try {
+            const todo = {
+                text: text,
+                completed: false,
+                categoryId: null,
+            }
+            const response = await axios.post('http://localhost:3001/todoItems', todo)
+
+            const data = await response.data
+            dispatch(addTodo(data))
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const deleteTodo = createAsyncThunk(
+    'todos/deleteTodo',
+    async (id, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await axios.delete(`http://localhost:3001/todoItems/${id}`)
+            dispatch(removeTodo({ id }))
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+);
+
+export const toggleStatus = createAsyncThunk(
+    'todos/toggleStatus',
+    async (id, { rejectWithValue, dispatch, getState }) => {
+        const todo = getState().todos.todos.find(todo => todo.id === id)
+        try {
+            const response = await axios.patch(`http://localhost:3001/todoItems/${id}`, { completed: !todo.completed })
+            dispatch(toggleTodoComplete({ id }))
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const toggleCategory = createAsyncThunk(
+    'todos/toggleCategory',
+    async ({ id, selectedCategory }, { rejectWithValue, getState }) => {
+   
+        try {
+            const response = await axios.patch(`http://localhost:3001/todoItems/${id}`, { categoryId: selectedCategory })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
 
 const initialState = {
     todos: [],
@@ -19,16 +79,14 @@ const initialState = {
     error: null,
 }
 
+
 const todoSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.todos.push({
-                id: new Date().toISOString(),
-                text: action.payload.text,
-                completed: false,
-            })
+            console.log(action.todos)
+            state.todos.unshift(action.payload)
         },
         removeTodo(state, action) {
             state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
@@ -48,9 +106,21 @@ const todoSlice = createSlice({
                 state.status = 'resolved';
                 state.todos = action.payload;
             })
+            .addCase(takeTodos.rejected, (state, action) => {
+                state.status = false
+                state.error = action.payload
+            })
+            .addCase(deleteTodo.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload;
+            })
+            .addCase(toggleStatus.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload;
+            })
     }
 })
 
-export const { addTodo, removeTodo, toggleTodoComplete } = todoSlice.actions;
+const { addTodo, removeTodo, toggleTodoComplete } = todoSlice.actions;
 
 export default todoSlice.reducer;
