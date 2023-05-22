@@ -14,6 +14,24 @@ const Item = styled(Box)(({ theme }) => ({
     borderRadius: "10px",
 }));
 
+const breakpoints = (theme) => ({
+    [theme.breakpoints.down('md')]: {
+        display: "none",
+    }
+
+})
+
+
+const ffff = (theme) => ({
+    [theme.breakpoints.down('md')]: {
+        flexBasis: "100%",
+        maxWidth: "100%"
+    }
+
+})
+
+
+
 const Main = () => {
 
     return (
@@ -25,6 +43,7 @@ const Main = () => {
                 columns={12}>
 
                 <Grid
+                    sx={breakpoints}
                     item
                     xs={3}
                 >
@@ -33,6 +52,7 @@ const Main = () => {
                     </Item>
                 </Grid>
                 <Grid
+                sx={ffff}
                     item
                     xs={9}
 

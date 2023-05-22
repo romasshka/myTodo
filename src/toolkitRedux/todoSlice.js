@@ -20,7 +20,7 @@ export const addNewTodo = createAsyncThunk(
             const todo = {
                 text: text,
                 completed: false,
-                categoryId: null,
+                categoryId: '',
             }
             const response = await axios.post('http://localhost:3001/todoItems', todo)
 
@@ -62,8 +62,7 @@ export const toggleStatus = createAsyncThunk(
 
 export const toggleCategory = createAsyncThunk(
     'todos/toggleCategory',
-    async ({ id, selectedCategory }, { rejectWithValue, getState }) => {
-   
+    async ({ id, selectedCategory }, { rejectWithValue }) => {
         try {
             const response = await axios.patch(`http://localhost:3001/todoItems/${id}`, { categoryId: selectedCategory })
             return response.data
@@ -85,7 +84,6 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            console.log(action.todos)
             state.todos.unshift(action.payload)
         },
         removeTodo(state, action) {

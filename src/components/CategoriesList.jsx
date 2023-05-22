@@ -1,13 +1,8 @@
 import { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
 import { takeCategories } from "../toolkitRedux/categorySlice";
 
-/* const selectCategories = createSelector(
-    state => state.categories,
-    categories => categories,
-) */
 
 const CategoriesList = () => {
 
