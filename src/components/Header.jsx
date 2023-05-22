@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,26 +8,21 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Button, Grid, useTheme } from '@mui/material';
 import { ColorModeContext, tokens } from '../theme';
+import BurgerMenu from './BurgerMenu';
+
+const menuCategories = (theme) => ({
+    [theme.breakpoints.down('md')]: {
+        display: "flex",
+    }
+})
 
 export default function Header() {
-    const [auth, setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-    };
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const colorMode = React.useContext(ColorModeContext)
+    const colorMode = useContext(ColorModeContext)
+
 
 
     return (
@@ -42,6 +37,12 @@ export default function Header() {
             }}
         >
             <Toolbar>
+
+                <Box
+                    display="none"
+                    sx={menuCategories}>
+                    <BurgerMenu/>
+                </Box>
 
                 <Button
                     disableFocusRipple
@@ -69,7 +70,6 @@ export default function Header() {
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
-                        onClick={handleMenu}
                         color="inherit"
                     >
                         {

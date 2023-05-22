@@ -35,7 +35,7 @@ const AsideCategory = () => {
     const [color, setColor] = useState("#336699");
     const [open, setOpen] = useState(false);
 
-    const handleClickOpen = (event) => {
+    const handleClickOpen = () => {
         setOpen(true);
     }
 
@@ -49,7 +49,7 @@ const AsideCategory = () => {
 
     const dispatch = useDispatch();
     const handleAddCategory = () => {
-        dispatch(addNewCategory({nameCategory, color} ))
+        dispatch(addNewCategory({ nameCategory, color }))
         setNameCategory('')
         handleClose()
     }
